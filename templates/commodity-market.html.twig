@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Commodity Market</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Métal</th>
+                <th>Devise</th>
+                <th>Change</th>
+                <th>Symbole</th>
+                <th>Prix</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for realtime_data in realtime_datas %}
+                <tr>
+                    <td>{{ realtime_data.metal }}</td>
+                    <td>{{ realtime_data.currency }}</td>
+                    <td>{{ realtime_data.exchange }}</td>
+                    <td>{{ realtime_data.symbol }}</td>
+                    <td>{{ realtime_data.price }}</td>
+                    <td>{{ realtime_data.date|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+    </table>
+
+{% endblock body %}
