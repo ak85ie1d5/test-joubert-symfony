@@ -24,6 +24,10 @@ services:
         tags:
             - { name: 'cron_job', schedule: '*/10 * * * *' }
 
+    App\Command\HistoryFixingCommand:
+        tags:
+            - { name: 'cron_job', schedule: '0 0 * * 1-5' }
+
     App\Service\GoldApiService:
         arguments:
             $apiKey: '%env(GOLD_API_KEY)%'
