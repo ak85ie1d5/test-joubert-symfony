@@ -31,6 +31,30 @@ class RealTimeCommodity
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column]
+    private ?float $PriceGram24k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram22k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram21k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram20k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram18k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram16k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram14k = null;
+
+    #[ORM\Column]
+    private ?float $PriceGram10k = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +128,102 @@ class RealTimeCommodity
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPriceGram24k(): ?float
+    {
+        return $this->PriceGram24k;
+    }
+
+    public function setPriceGram24k(float $PriceGram24k): static
+    {
+        $this->PriceGram24k = $PriceGram24k;
+
+        return $this;
+    }
+
+    public function getPriceGram22k(): ?float
+    {
+        return $this->PriceGram22k;
+    }
+
+    public function setPriceGram22k(float $PriceGram22k): static
+    {
+        $this->PriceGram22k = $PriceGram22k;
+
+        return $this;
+    }
+
+    public function getPriceGram21k(): ?float
+    {
+        return $this->PriceGram21k;
+    }
+
+    public function setPriceGram21k(float $PriceGram21k): static
+    {
+        $this->PriceGram21k = $PriceGram21k;
+
+        return $this;
+    }
+
+    public function getPriceGram20k(): ?float
+    {
+        return $this->PriceGram20k;
+    }
+
+    public function setPriceGram20k(float $PriceGram20k): static
+    {
+        $this->PriceGram20k = $PriceGram20k;
+
+        return $this;
+    }
+
+    public function getPriceGram18k(): ?float
+    {
+        return $this->PriceGram18k;
+    }
+
+    public function setPriceGram18k(float $PriceGram18k): static
+    {
+        $this->PriceGram18k = $PriceGram18k;
+
+        return $this;
+    }
+
+    public function getPriceGram16k(): ?float
+    {
+        return $this->PriceGram16k;
+    }
+
+    public function setPriceGram16k(float $PriceGram16k): static
+    {
+        $this->PriceGram16k = $PriceGram16k;
+
+        return $this;
+    }
+
+    public function getPriceGram14k(): ?float
+    {
+        return $this->PriceGram14k;
+    }
+
+    public function setPriceGram14k(float $PriceGram14k): static
+    {
+        $this->PriceGram14k = $PriceGram14k;
+
+        return $this;
+    }
+
+    public function getPriceGram10k(): ?float
+    {
+        return $this->PriceGram10k;
+    }
+
+    public function setPriceGram10k(float $PriceGram10k): static
+    {
+        $this->PriceGram10k = $PriceGram10k;
 
         return $this;
     }

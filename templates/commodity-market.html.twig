@@ -12,6 +12,7 @@
                 <th>Change</th>
                 <th>Symbole</th>
                 <th>Prix</th>
+                <th>Prix gramme 24 ct</th>
                 <th>Date</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                     <td>{{ realtime_data.exchange }}</td>
                     <td>{{ realtime_data.symbol }}</td>
                     <td>{{ realtime_data.price }}</td>
+                    <td>{{ realtime_data.price_gram_24ct }}</td>
                     <td>{{ realtime_data.date|date('Y-m-d H:i:s') }}</td>
                 </tr>
             {% endfor %}

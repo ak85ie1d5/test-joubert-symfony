@@ -55,13 +55,20 @@ class FetchDataCommand extends Command
                 $datetime = (new \DateTimeImmutable())->setTimestamp($data['timestamp']);
                 $realTimeCommodity->setCreatedAt($datetime);
 
+                $realTimeCommodity->setPriceGram24k($data['price_gram_24k']);
+                $realTimeCommodity->setPriceGram22k($data['price_gram_22k']);
+                $realTimeCommodity->setPriceGram21k($data['price_gram_21k']);
+                $realTimeCommodity->setPriceGram20k($data['price_gram_20k']);
+                $realTimeCommodity->setPriceGram18k($data['price_gram_18k']);
+                $realTimeCommodity->setPriceGram16k($data['price_gram_16k']);
+                $realTimeCommodity->setPriceGram14k($data['price_gram_14k']);
+                $realTimeCommodity->setPriceGram10k($data['price_gram_10k']);
+
                 $this->entityManager->persist($realTimeCommodity);
             }
 
             $this->entityManager->flush();
-
-            //$io->success('Data fetched successfully.');
-            //$url = "https://www.goldapi.io/api/{$symbol}/{$this->currency}{$this->date}";
+            
             $io->success(print_r($data, true));
             return Command::SUCCESS;
         } catch (\Exception $e) {
