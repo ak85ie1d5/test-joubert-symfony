@@ -13,19 +13,34 @@
                 <th>Symbole</th>
                 <th>Prix</th>
                 <th>Prix gramme 24 ct</th>
+                <th>Prix gramme 22 ct</th>
+                <th>Prix gramme 21 ct</th>
+                <th>Prix gramme 20 ct</th>
+                <th>Prix gramme 18 ct</th>
+                <th>Prix gramme 16 ct</th>
+                <th>Prix gramme 14 ct</th>
+                <th>Prix gramme 10 ct</th>
                 <th>Date</th>
             </tr>
         </thead>
         <tbody>
+
             {% for realtime_data in realtime_datas %}
                 <tr>
-                    <td>{{ realtime_data.metal }}</td>
-                    <td>{{ realtime_data.currency }}</td>
-                    <td>{{ realtime_data.exchange }}</td>
-                    <td>{{ realtime_data.symbol }}</td>
-                    <td>{{ realtime_data.price }}</td>
-                    <td>{{ realtime_data.price_gram_24ct }}</td>
-                    <td>{{ realtime_data.date|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ realtime_data.Metal }}</td>
+                    <td>{{ realtime_data.Currency }}</td>
+                    <td>{{ realtime_data.Exchange }}</td>
+                    <td>{{ realtime_data.Symbol }}</td>
+                    <td>{{ realtime_data.Price }}</td>
+                    <td>{{ realtime_data.PriceGram24k }}</td>
+                    <td>{{ realtime_data.PriceGram22k }}</td>
+                    <td>{{ realtime_data.PriceGram21k }}</td>
+                    <td>{{ realtime_data.PriceGram20k }}</td>
+                    <td>{{ realtime_data.PriceGram18k }}</td>
+                    <td>{{ realtime_data.PriceGram16k }}</td>
+                    <td>{{ realtime_data.PriceGram14k }}</td>
+                    <td>{{ realtime_data.PriceGram10k }}</td>
+                    <td>{{ realtime_data.createdAt|date('d/m/Y H:i:s') }}</td>
                 </tr>
             {% endfor %}
     </table>

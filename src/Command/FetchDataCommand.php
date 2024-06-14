@@ -68,7 +68,7 @@ class FetchDataCommand extends Command
             }
 
             $this->entityManager->flush();
-            
+
             $io->success(print_r($data, true));
             return Command::SUCCESS;
         } catch (\Exception $e) {

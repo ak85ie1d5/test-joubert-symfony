@@ -16,6 +16,15 @@ class RealTimeCommodityRepository extends ServiceEntityRepository
         parent::__construct($registry, RealTimeCommodity::class);
     }
 
+    public function findLastest(int $limit): array
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return RealTimeCommodity[] Returns an array of RealTimeCommodity objects
     //     */
