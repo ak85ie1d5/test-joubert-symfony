@@ -22,6 +22,9 @@ class HistoryFixing
     #[ORM\Column]
     private ?int $OpenTime = null;
 
+    #[ORM\Column(length: 3)]
+    private ?string $Currency = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class HistoryFixing
     public function setOpenTime(int $OpenTime): static
     {
         $this->OpenTime = $OpenTime;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->Currency;
+    }
+
+    public function setCurrency(string $Currency): static
+    {
+        $this->Currency = $Currency;
 
         return $this;
     }
