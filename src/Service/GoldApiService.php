@@ -2,39 +2,51 @@
 
 namespace App\Service;
 
+use App\Repository\OptionsRepository;
+use Exception;
+
 class GoldApiService
 {
-    private string $apiKey;
+    private OptionsService $optionsService;
+
     private string $date = "";
 
-    public function __construct(string $apiKey)
+    public function __construct(OptionsService $optionsService)
     {
-        $this->apiKey = $apiKey;
+        $this->optionsService = $optionsService;
     }
 
+    /**
+     * @throws Exception
+     */
     public function sendRequestToApi(string $url)
     {
-        $curl = curl_init();
+        if ($this->optionsService->getApiKey() != []) {
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTPHEADER => array(
-                'x-access-token: ' . $this->apiKey,
-                'Content-Type: application/json'
-            )
-        ));
+            $curl = curl_init();
 
-        $response = curl_exec($curl);
-        $error = curl_error($curl);
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTPHEADER => array(
+                    'x-access-token: ' . $this->optionsService->getApiKey(),
+                    'Content-Type: application/json'
+                )
+            ));
 
-        curl_close($curl);
+            $response = curl_exec($curl);
+            $error = curl_error($curl);
 
-        if ($error) {
-            throw new \Exception('Error: ' . $error);
+            curl_close($curl);
+
+            if ($error) {
+                throw new Exception('Error: ' . $error);
+            } else {
+                return json_decode($response, true);
+            }
         } else {
-            return json_decode($response, true);
+            throw new Exception('Error: API key not found.');
         }
     }
 }
