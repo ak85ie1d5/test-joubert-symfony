@@ -47,27 +47,47 @@ class HistoryFixingCommand extends Command
         try {
             $data = $this->goldApiService->sendRequestToApi("https://www.goldapi.io/api/status");
 
-            $this->currentDate = date('Ymd');
+            // Get the current date
+            $currentDate = new \DateTimeImmutable();
 
-            foreach ($this->metals as $metal) {
-                $data = $this->goldApiService->sendRequestToApi("https://www.goldapi.io/api/{$metal}/{$this->currency}/{$this->currentDate}");
+            // Check if it's the first time the command is running
+            $firstRun = $this->entityManager->getRepository(HistoryFixing::class)->findAll() === [];
 
-                $historyFixing = new HistoryFixing();
-                $historyFixing->setMetal($metal);
-                $historyFixing->setCurrency($this->currency);
-                $historyFixing->setOpenPrice($data['open_price']);
-                $historyFixing->setOpenTime($data['open_time']);
-
-                $this->entityManager->persist($historyFixing);
+            if ($firstRun) {
+                // If it's the first run, fetch the data for the past year
+                for ($i = 0; $i < 365; $i++) {
+                    $this->fetchAndStoreData($currentDate->modify('-' . $i . ' days'), $io);
+                }
+            } else {
+                // If it's not the first run, fetch the daily data
+                $this->fetchAndStoreData($currentDate, $io);
             }
 
-            $this->entityManager->flush();
-
-            $io->success(print_r($data, true));
             return Command::SUCCESS;
         } catch (\Exception $e) {
             $io->error('An error occurred: ' . $e->getMessage());
             return Command::FAILURE;
         }
+    }
+
+    private function fetchAndStoreData(\DateTimeImmutable $date, SymfonyStyle $io): void
+    {
+        $formattedDate = $date->format('Ymd');
+
+        foreach ($this->metals as $metal) {
+            $data = $this->goldApiService->sendRequestToApi("https://www.goldapi.io/api/{$metal}/{$this->currency}/{$formattedDate}");
+
+            $historyFixing = new HistoryFixing();
+            $historyFixing->setMetal($metal);
+            $historyFixing->setCurrency($this->currency);
+            $historyFixing->setOpenPrice($data['open_price']);
+            $historyFixing->setOpenTime($data['open_time']);
+
+            $this->entityManager->persist($historyFixing);
+        }
+
+        $this->entityManager->flush();
+
+        $io->success(print_r($data, true));
     }
 }
