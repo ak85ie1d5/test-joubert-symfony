@@ -16,11 +16,13 @@ class RealTimeCommodityRepository extends ServiceEntityRepository
         parent::__construct($registry, RealTimeCommodity::class);
     }
 
-    public function findLastest(int $limit): array
+    public function findLastest(array $metals): array
     {
         return $this->createQueryBuilder('r')
-            ->orderBy('r.createdAt', 'DESC')
-            ->setMaxResults($limit)
+            ->where('r.Metal IN (:metals)')
+            ->setParameter('metals', $metals)
+            ->groupBy('r.Metal')
+            ->orderBy('r.createdAt', 'ASC')
             ->getQuery()
             ->getResult();
     }
