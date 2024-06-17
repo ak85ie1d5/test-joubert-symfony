@@ -20,3 +20,8 @@ $ crontab -e
 * * * * * php /path/to/your/project/bin/console app:fetch-datas
 * * * * * php /path/to/your/project/bin/console app:history-fixing
 ```
+
+## Paramètres de l'API
+
+- `GET /api/real-time-commodity/{code}` : retourne le cours actuel d'un métal. Le code étant l'identifiant du métal (XAU, XAG, XPT, XPD)
+- `GET /api/history-fixing/{start_date}/{period}` : retourne l'historique du cours d'un métal sur une période donnée. Le `start_date` est la date de début de l'historique au format `Y-m-d` et `period` est la période de l'historique (daily, weekly, monthly, yearly)
