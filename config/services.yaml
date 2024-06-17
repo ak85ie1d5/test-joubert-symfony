@@ -20,5 +20,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Command\FetchDataCommand:
+        tags:
+            - { name: 'cron_job', schedule: '*/10 * * * *' }
+
+    App\Command\HistoryFixingCommand:
+        tags:
+            - { name: 'cron_job', schedule: '0 0 * * 1-5' }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
