@@ -17,7 +17,7 @@ class Options
     #[ORM\Column(length: 20)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::JSON)]
+    #[ORM\Column(type: 'json_unescaped')]
     private array $value = [];
 
     public function getId(): ?int
