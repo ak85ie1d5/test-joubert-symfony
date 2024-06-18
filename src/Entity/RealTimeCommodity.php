@@ -55,6 +55,12 @@ class RealTimeCommodity
     #[ORM\Column]
     private ?float $PriceGram10k = null;
 
+    #[ORM\Column]
+    private ?float $ch = null;
+
+    #[ORM\Column]
+    private ?float $chp = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -224,6 +230,30 @@ class RealTimeCommodity
     public function setPriceGram10k(float $PriceGram10k): static
     {
         $this->PriceGram10k = $PriceGram10k;
+
+        return $this;
+    }
+
+    public function getCh(): ?float
+    {
+        return $this->ch;
+    }
+
+    public function setCh(float $ch): static
+    {
+        $this->ch = $ch;
+
+        return $this;
+    }
+
+    public function getChp(): ?float
+    {
+        return $this->chp;
+    }
+
+    public function setChp(float $chp): static
+    {
+        $this->chp = $chp;
 
         return $this;
     }

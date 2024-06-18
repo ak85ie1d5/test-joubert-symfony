@@ -30,6 +30,8 @@ class RealTimeCommodityController extends AbstractController
                 'exchange' => $entry->getExchange(),
                 'symbol' => $entry->getSymbol(),
                 'price' => $entry->getPrice(),
+                'ch' => $entry->getCh(),
+                'chp' => $entry->getChp(),
                 'time' => $entry->getCreatedAt()->format(DATE_ATOM),
                 'price_gram_24k' => $entry->getPriceGram24k(),
                 'price_gram_22k' => $entry->getPriceGram22k(),
