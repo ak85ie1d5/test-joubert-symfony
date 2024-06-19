@@ -16,7 +16,7 @@ class HistoryFixingRepository extends ServiceEntityRepository
         parent::__construct($registry, HistoryFixing::class);
     }
 
-    public function filteringByPeriod(string $start_date, string $period): array
+    public function filteringByPeriod(string $period): array
     {
         $availablePeriods = [
             'daily' => 1,
@@ -27,12 +27,12 @@ class HistoryFixingRepository extends ServiceEntityRepository
 
         $period = $availablePeriods[$period];
 
-        $start_date = strtotime($start_date);
-        $end_date = strtotime("+$period days", $start_date);
+        $current_date = time();
+        $period_date = strtotime("-$period days", $current_date);
         return $this->createQueryBuilder('h')
             ->where('h.OpenTime BETWEEN :start AND :end')
-            ->setParameter('start', $start_date)
-            ->setParameter('end', $end_date)
+            ->setParameter('start', $period_date)
+            ->setParameter('end', $current_date)
             ->orderBy('h.OpenTime', 'ASC')
             ->getQuery()
             ->getResult();

@@ -21,7 +21,11 @@ $ crontab -e
 * * * * * php /path/to/your/project/bin/console app:history-fixing
 ```
 
+## Utilisation
+- Avant d'utiliser l'application, il faut renseigner la clé d'API dans la table `options` de la base de données.
+- Pour accéder à la liste des métaux, il suffit de se rendre sur la page `/commodity/market`.
+
 ## Paramètres de l'API
 
 - `GET /api/real-time-commodity/{code}` : retourne le cours actuel d'un métal. Le code étant l'identifiant du métal (XAU, XAG, XPT, XPD)
-- `GET /api/history-fixing/{start_date}/{period}` : retourne l'historique du cours d'un métal sur une période donnée. Le `start_date` est la date de début de l'historique au format `Y-m-d` et `period` est la période de l'historique (daily, weekly, monthly, yearly)
+- `GET /api/history-fixing/{period}` : retourne l'historique du cours d'un métal sur une période donnée. `period` est la période de l'historique (daily, weekly, monthly, yearly)
