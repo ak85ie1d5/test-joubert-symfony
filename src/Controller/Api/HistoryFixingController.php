@@ -16,21 +16,30 @@ class HistoryFixingController extends AbstractController
         $this->historyFixingRepository = $historyFixingRepository;
     }
 
-    #[Route('/api/history-fixing/{start_date}/{period}', name: 'app_api_history_fixing', methods: ['GET', 'HEAD'])]
-    public function index(string $start_date, string $period): JsonResponse
+    #[Route('/api/history-fixing/{period}', name: 'app_api_history_fixing', methods: ['GET', 'HEAD'])]
+    public function index(string $period): JsonResponse
     {
-        $filteringByPeriod = $this->historyFixingRepository->filteringByPeriod($start_date, $period);
+        $filteringByPeriod = $this->historyFixingRepository->filteringByPeriod($period);
 
-        $filteringByPeriodArray = array_map(function ($entry) {
-            return [
-                'id' => $entry->getId(),
-                'open_price' => $entry->getOpenPrice(),
-                'metal' => $entry->getMetal(),
-                'open_time' => $entry->getOpenTime(),
-                'currency' => $entry->getCurrency(),
-            ];
-        }, $filteringByPeriod);
+        $datasets = [];
+        $labels = [];
+        foreach ($filteringByPeriod as $entry) {
+            $metal = $entry->getMetal();
+            $datasets[$metal]['label'] = $metal;
+            $datasets[$metal]['data'][] = $entry->getOpenPrice();
+            $datasets[$metal]['borderWidth'] = 1;
 
-        return new JsonResponse($filteringByPeriodArray);
+            $labels[] = date('d/m/Y', $entry->getOpenTime());
+        }
+
+        // Reset array keys
+        $datasets = array_values($datasets);
+
+        $response = [
+            'labels' => $labels,
+            'datasets' => $datasets,
+        ];
+
+        return new JsonResponse($response);
     }
 }
